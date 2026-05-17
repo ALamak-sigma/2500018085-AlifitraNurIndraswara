@@ -2,108 +2,96 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Konversi Nilai Angka ke Huruf</title>
+  <title>Operator ?</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: 60px auto;
-      background: #f0f4f8;
+      background: #e8f0fe;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .card {
       background: white;
       border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 36px 40px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      min-width: 320px;
+      text-align: center;
     }
     h2 {
-      text-align: center;
-      color: #2c3e50;
+      color: #1a237e;
+      margin-bottom: 24px;
+    }
+    label {
+      font-size: 15px;
+      color: #333;
     }
     input[type="number"] {
       width: 100%;
       padding: 10px;
       font-size: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #aaa;
       border-radius: 6px;
       box-sizing: border-box;
-      margin-top: 10px;
+      margin-top: 8px;
+      text-align: center;
     }
     button {
       width: 100%;
+      margin-top: 16px;
       padding: 10px;
-      margin-top: 12px;
       font-size: 16px;
-      background: #3498db;
+      background: #1a237e;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
     }
-    button:hover {
-      background: #2980b9;
-    }
+    button:hover { background: #283593; }
     #hasil {
       margin-top: 20px;
       font-size: 20px;
-      text-align: center;
       font-weight: bold;
-      color: #27ae60;
     }
-    .tabel-acuan {
-      margin-top: 24px;
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .tabel-acuan th, .tabel-acuan td {
-      border: 1px solid #ddd;
-      padding: 6px 12px;
-      text-align: center;
-    }
-    .tabel-acuan th {
-      background: #3498db;
-      color: white;
-    }
+    .lulus   { color: #2e7d32; }
+    .tidaklulus { color: #c62828; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h2>Konversi Nilai Angka ke Huruf</h2>
+    <h2>Operator Pembanding &amp; Logika</h2>
 
-    <label for="nilaiInput">Masukkan Nilai (0 - 100):</label>
+    <label for="nilaiInput">Nilai (0-100):</label>
     <input type="number" id="nilaiInput" min="0" max="100" placeholder="Masukkan nilai...">
-    <button onclick="evaluasiNilai()">Evaluasi</button>
+    <button onclick="cekLulus()">Cek</button>
 
     <div id="hasil"></div>
   </div>
 
-  <script>
-    function evaluasiNilai() {
+  <script language="JavaScript">
+    function cekLulus() {
       var nilai = Number(document.getElementById("nilaiInput").value);
-      var huruf;
+      var input = document.getElementById("nilaiInput").value;
 
-      if (nilai < 0 || nilai > 100 || document.getElementById("nilaiInput").value === "") {
-        document.getElementById("hasil").style.color = "#e74c3c";
-        document.getElementById("hasil").innerHTML = "⚠️ Masukkan nilai antara 0 hingga 100!";
+      if (input === "" || nilai < 0 || nilai > 100) {
+        document.getElementById("hasil").className = "tidaklulus";
+        document.getElementById("hasil").innerHTML = "⚠️ Masukkan nilai 0 - 100!";
         return;
       }
 
-      if (nilai >= 0 && nilai <= 20) {
-        huruf = "E";
-      } else if (nilai >= 21 && nilai <= 39) {
-        huruf = "D";
-      } else if (nilai >= 40 && nilai <= 64) {
-        huruf = "C";
-      } else if (nilai >= 65 && nilai <= 79) {
-        huruf = "B";
-      } else if (nilai >= 80 && nilai <= 100) {
-        huruf = "A";
-      }
+      // Operator ternary persis seperti di slide
+      var hasil = (nilai >= 60) ? "Lulus" : "Tidak Lulus";
 
-      document.getElementById("hasil").style.color = "#27ae60";
-      document.getElementById("hasil").innerHTML =
-        "Nilai: " + nilai + " &rarr; Huruf: <span style='font-size:28px'>" + huruf + "</span>";
+      var el = document.getElementById("hasil");
+      el.className = (nilai >= 0 && nilai <= 20) ? "E" : el.className;
+       el.className = (nilai >= 21 && nilai <= 64) ? "C" : el.className;
+        el.className = (nilai >= 65 && nilai <= 79) ? "B" : el.className;
+         el.className = (nilai >= 80 && nilai <= 100) ? "A" : el.className;
+
+      el.innerHTML = "Hasil: " + hasil;
     }
   </script>
 </body>
